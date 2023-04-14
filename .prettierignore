@@ -1,0 +1,14 @@
+# Directories
+.git
+.github
+.hg
+.next
+.svn
+.vscode
+build
+node_modules
+public
+
+# Files
+next-env.d.ts
+# *.js
