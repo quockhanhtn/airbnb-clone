@@ -8,8 +8,8 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
-import { useState } from 'react';
-import { useRegisterModal } from '~/app/hooks';
+import { useCallback, useState } from 'react';
+import { useLoginModal, useRegisterModal } from '~/app/hooks';
 
 import Modal from './Modal';
 import Heading from '../Heading';
@@ -19,6 +19,7 @@ import Button from '../Button';
 export type RegisterModalProps = {};
 
 const RegisterModal: React.FC<RegisterModalProps> = () => {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -71,6 +72,11 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
     </div>
   );
 
+  const switchToLogin = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
@@ -80,11 +86,7 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center justify-center gap-2">
           <span>Already have an account?</span>
-          <span
-            className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={registerModal.onClose}
-            role="button"
-          >
+          <span className="text-neutral-800 cursor-pointer hover:underline" onClick={switchToLogin} role="button">
             Log in here.
           </span>
         </div>
