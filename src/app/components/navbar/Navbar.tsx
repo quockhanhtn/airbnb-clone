@@ -4,6 +4,7 @@ import { Container } from '~/app/components';
 import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
+import Categories from './Categories';
 
 export type NavbarProps = {
   currentUser?: SafeUser | null;
@@ -20,6 +21,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
+
+        <Categories />
       </div>
     </div>
   );
