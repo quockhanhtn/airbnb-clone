@@ -1,14 +1,27 @@
-# Directories
-.git
-.github
-.hg
-.next
-.svn
-.vscode
-build
-node_modules
-public
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Files
-next-env.d.ts
-*.js
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# env
+!.env.sample
+.env*
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
