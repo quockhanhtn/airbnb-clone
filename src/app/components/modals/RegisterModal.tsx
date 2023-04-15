@@ -37,7 +37,7 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
     setIsLoading(true);
 
     axios
-      .post('/api/register', data)
+      .post('/api/auth/register', data)
       .then(() => {
         registerModal.onClose();
       })
@@ -54,9 +54,9 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
     <div className="flex flex-col gap-4">
       <Heading title="Welcome to Airbnb" subTitle="Create an account" />
 
-      <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required type="email" />
-
       <Input id="name" label="Name" disabled={isLoading} register={register} errors={errors} required type="text" />
+
+      <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required type="email" />
 
       <Input
         id="password"
