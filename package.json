@@ -14,7 +14,8 @@
     "start": "next start",
     "format": "prettier --write .",
     "lint": "next lint --dir src",
-    "lint:fix": "yarn format && next lint --fix --dir src"
+    "lint:fix": "yarn format && next lint --fix --dir src",
+    "db:push": "prisma db push"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
