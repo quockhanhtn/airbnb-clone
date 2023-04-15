@@ -4,7 +4,7 @@ import { SafeUser } from '~/types';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useState, useCallback } from 'react';
 import { signOut } from 'next-auth/react';
-import { useLoginModal, useRegisterModal } from '~/app/hooks';
+import { useLoginModal, useRegisterModal, useRentModal } from '~/app/hooks';
 
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
@@ -17,16 +17,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+  const rentModal = useRentModal();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      loginModal.onOpen();
+      return;
+    }
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           role="button"
           className="
             hidden
@@ -88,18 +97,18 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem label="My trips" onClick={() => {}} />
-                <MenuItem label="My favorites" onClick={() => {}} />
-                <MenuItem label="My reservations" onClick={() => {}} />
-                <MenuItem label="My properties" onClick={() => {}} />
-                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="My trips" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="My favorites" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="My reservations" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="My properties" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="Airbnb your home" onClick={rentModal.onOpen} />
                 <hr />
-                <MenuItem label="Logout" onClick={() => signOut()} />
+                <MenuItem setIsOpen={setIsOpen} label="Logout" onClick={() => signOut()} />
               </>
             ) : (
               <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign in" onClick={registerModal.onOpen} />
+                <MenuItem setIsOpen={setIsOpen} label="Login" onClick={loginModal.onOpen} />
+                <MenuItem setIsOpen={setIsOpen} label="Sign in" onClick={registerModal.onOpen} />
               </>
             )}
           </div>
