@@ -30,9 +30,6 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { title, description, imageSrc, category, roomCount, bathroomCount, guestCount, location, price } = body;
 
-  console.log('body:::', body);
-  console.log('body:::', Object.keys(body));
-
   try {
     validationSchema.validateSync(body);
   } catch (error) {
