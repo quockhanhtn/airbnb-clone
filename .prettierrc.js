@@ -8,4 +8,5 @@ module.exports = {
   useTabs: false,
   semi: true,
   trailingComma: 'all',
+  bracketSameLine: false,
 };
