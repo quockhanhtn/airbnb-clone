@@ -1,11 +1,13 @@
 'use client';
 
 import { SafeUser } from '~/types';
-import { AiOutlineMenu } from 'react-icons/ai';
-import { useState, useCallback } from 'react';
+
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState, useCallback } from 'react';
 import { useLoginModal, useRegisterModal, useRentModal } from '~/app/hooks';
 
+import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
 
@@ -15,6 +17,7 @@ export type UserMenuProps = {
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const rentModal = useRentModal();
@@ -97,7 +100,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem setIsOpen={setIsOpen} label="My trips" onClick={() => {}} />
+                <MenuItem setIsOpen={setIsOpen} label="My trips" onClick={() => router.push('/trips')} />
                 <MenuItem setIsOpen={setIsOpen} label="My favorites" onClick={() => {}} />
                 <MenuItem setIsOpen={setIsOpen} label="My reservations" onClick={() => {}} />
                 <MenuItem setIsOpen={setIsOpen} label="My properties" onClick={() => {}} />
