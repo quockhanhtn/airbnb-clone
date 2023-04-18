@@ -1,8 +1,8 @@
-import { getCurrentUser, getFavoritesListings } from '~/app/actions';
+import { getCurrentUser, getListings } from '~/app/actions';
 import { ClientOnly, EmptyState } from '~/app/components';
-import FavoritesClient from './FavoritesClient';
+import PropertiesClient from './PropertiesClient';
 
-const FavoritesPage = async () => {
+const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -13,20 +13,19 @@ const FavoritesPage = async () => {
     );
   }
 
-  const listings = await getFavoritesListings();
+  const listings = await getListings({ userId: currentUser?.id });
   if (listings === null || listings?.length === 0) {
     return (
       <ClientOnly>
-        <EmptyState title="No favorites founds" subtitle="Looks like you have no favorites listing" showReset={false} />
+        <EmptyState title="No properties founds" subtitle="Looks like you have no properties." showReset={false} />
       </ClientOnly>
     );
   }
 
   return (
     <ClientOnly>
-      <FavoritesClient currentUser={currentUser} listings={listings} />
+      <PropertiesClient currentUser={currentUser} listings={listings} />
     </ClientOnly>
   );
 };
-
-export default FavoritesPage;
+export default PropertiesPage;
