@@ -1,15 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 import { useCountries } from '~/app/hooks';
 
 import { format } from 'date-fns';
 
-import { SafeListing, SafeReservation, SafeUser } from '~/types';
 import Image from 'next/image';
-import HeartButton from '../HeartButton';
+import Link from 'next/link';
+import { SafeListing, SafeReservation, SafeUser } from '~/types';
 import Button from '../Button';
+import HeartButton from '../HeartButton';
 
 export type ListingCardProps = {
   data: SafeListing;
@@ -32,7 +32,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionId = '',
   currentUser,
 }) => {
-  const router = useRouter();
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
@@ -68,13 +67,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   );
 
   return (
-    <div
-      onClick={() => router.push(`/listings/${data.id}`)}
-      role="button"
-      className="
-        col-span-1 cursor-pointer group
-      "
-    >
+    <div className="col-span-1">
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
@@ -95,9 +88,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
 
-        <p className="font-semibold text-lg">
-          {location?.region}, {location?.label}
-        </p>
+        <Link href={`/listings/${data.id}`}>
+          <p className="font-semibold text-lg">
+            {location?.region}, {location?.label}
+          </p>
+        </Link>
 
         <p className="font-light text-neutral-500">{reservationDate || data.category}</p>
 

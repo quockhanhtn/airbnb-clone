@@ -2,19 +2,19 @@
 
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCallback, useState } from 'react';
 
 import { SafeReservation, SafeUser } from '~/types';
 import { Container, Heading } from '../components';
 import { ListingCard } from '../components/listings';
 
-export type TripsClientProps = {
+export type ReservationsClientProps = {
   currentUser?: SafeUser | null;
   reservations?: Array<SafeReservation>;
 };
 
-const TripsClient: React.FC<TripsClientProps> = ({ currentUser, reservations }) => {
+const ReservationsClient: React.FC<ReservationsClientProps> = ({ currentUser, reservations }) => {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState<string>('');
 
@@ -29,7 +29,7 @@ const TripsClient: React.FC<TripsClientProps> = ({ currentUser, reservations }) 
         })
         .catch((e) => {
           toast.error('Something went wrong !');
-          console.log('trips-reservations-cancel::', e);
+          console.log('reservations-cancel::', e);
         })
         .finally(() => {
           setDeletingId('');
@@ -40,7 +40,7 @@ const TripsClient: React.FC<TripsClientProps> = ({ currentUser, reservations }) 
 
   return (
     <Container>
-      <Heading title="Trips" subTitle="Where you've been and where you're going" />
+      <Heading title="Reservations" subTitle="Bookings on your properties" />
 
       <div
         className="
@@ -57,7 +57,7 @@ const TripsClient: React.FC<TripsClientProps> = ({ currentUser, reservations }) 
       >
         {reservations?.map((r) => (
           <ListingCard
-            key={`trip-reservation-${r.id}`}
+            key={`my-reservation-${r.id}`}
             data={r.listing}
             reservation={r}
             actionId={r.id}
@@ -72,4 +72,4 @@ const TripsClient: React.FC<TripsClientProps> = ({ currentUser, reservations }) 
   );
 };
 
-export default TripsClient;
+export default ReservationsClient;
