@@ -78,7 +78,8 @@ const RentModal: React.FC<RentModalProps> = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) {
-      return onNext();
+      onNext();
+      return;
     }
 
     setIsLoading(true);
@@ -250,6 +251,7 @@ const RentModal: React.FC<RentModalProps> = () => {
 
 export default RentModal;
 
+/* eslint-disable no-unused-vars */
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,

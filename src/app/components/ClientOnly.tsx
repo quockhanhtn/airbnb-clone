@@ -15,6 +15,7 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
 
   if (!hasMounted) return null;
 
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
 

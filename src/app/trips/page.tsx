@@ -1,4 +1,4 @@
-import { getCurrentUser, getListingById, getReservations } from '~/app/actions';
+import { getCurrentUser, getReservations } from '~/app/actions';
 import { ClientOnly, EmptyState } from '~/app/components';
 import TripsClient from './TripsClient';
 
