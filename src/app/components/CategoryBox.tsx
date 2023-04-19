@@ -1,9 +1,10 @@
 'use client';
 
+import queryString from 'query-string';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
+
 import { IconType } from 'react-icons';
-import queryString from 'query-string';
 
 export type CategoryBoxProps = {
   label: string;
