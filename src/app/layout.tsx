@@ -1,7 +1,7 @@
 import { Nunito } from 'next/font/google';
 
 import Navbar from '~/app/components/navbar';
-import { LoginModal, RegisterModal, RentModal } from './components/modals';
+import { LoginModal, RegisterModal, RentModal, SearchModal } from './components/modals';
 import { ClientOnly } from './components';
 import { ToasterProvider } from './providers';
 
@@ -29,6 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <LoginModal />
           <RegisterModal />
           <RentModal />
+          <SearchModal />
 
           <Navbar currentUser={currentUser} />
         </ClientOnly>
