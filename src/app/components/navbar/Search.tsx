@@ -1,10 +1,51 @@
 'use client';
 
 import { BiSearch } from 'react-icons/bi';
-import { useSearchModal } from '~/app/hooks';
+
+import { differenceInDays } from 'date-fns';
+import { useSearchParams } from 'next/navigation';
+import { useCountries, useSearchModal } from '~/app/hooks';
+import { useMemo } from 'react';
 
 const Search = () => {
   const searchModal = useSearchModal();
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
+
+  const locationValue = params?.get('locationValue');
+  const startDate = params?.get('startDate');
+  const endDate = params?.get('endDate');
+  const guestCount = params?.get('guestCount');
+
+  const locationLabel = useMemo(() => {
+    if (locationValue) {
+      const country = getByValue(locationValue);
+      if (country && country.label) {
+        return country.label;
+      }
+    }
+    return 'Any Where';
+  }, [getByValue, locationValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      let diff = differenceInDays(end, start);
+      if (diff === 0) {
+        diff = 1;
+      }
+      return `${diff} Days`;
+    }
+    return 'Any Week';
+  }, [endDate, startDate]);
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} Guests`;
+    }
+    return 'Add Guests';
+  }, [guestCount]);
 
   return (
     <div
@@ -30,7 +71,7 @@ const Search = () => {
             px-6
           "
         >
-          Any Where
+          {locationLabel}
         </div>
         <div
           className="
@@ -42,7 +83,7 @@ const Search = () => {
             border-x-[1px]
           "
         >
-          Any Week
+          {durationLabel}
         </div>
 
         <div
@@ -57,7 +98,7 @@ const Search = () => {
             gap-3
           "
         >
-          <div className="hidden sm:block">Add Guests</div>
+          <div className="hidden sm:block">{guestLabel}</div>
           <div
             className="
               p-2
