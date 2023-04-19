@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { EmptyState } from './components';
+import EmptyState from './components/EmptyState'; // do not use  import { EmptyState } from './components' to avoid error
 
 export type ErrorStateProps = {
   error: Error;
